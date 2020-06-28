@@ -1,4 +1,4 @@
-export default `
+module.exports = `
 Lowbrow, Highbrow
 Boring topic, Fascinating topic
 Underrated skill, overrated skill
@@ -50,7 +50,7 @@ Religious, Sacrilegious
 Replaceable, Irreplaceable
 Requires luck, Requires skill
 Role model, Bad influence
-Scare animal, Nice animal
+Scary animal, Nice animal
 Science, Pseudoscience
 Secret, Public Knowledge
 Short, Long
