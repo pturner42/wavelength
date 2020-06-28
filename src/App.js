@@ -32,8 +32,9 @@ function App() {
     ws.onmessage = function(e) {
       setGameData(JSON.parse(e.data));
     };
-    ws.onclose = function() {
+    ws.onclose = function(e) {
       alert('Lost connection to the game. Refresh your browser.');
+      console.error(e);
     }
   }, []);
 
