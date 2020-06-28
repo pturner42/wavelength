@@ -179,7 +179,8 @@ const leaveRoom = (connection) => {
 };
 
 const server = http.createServer();
-server.listen(9898, () => console.log('Websocket listening'));
+const WS_PORT = 9898;
+server.listen(WS_PORT, () => console.log(`Websocket listening on ${WS_PORT}`));
 const wsServer = new WebSocketServer({
   httpServer: server,
 });
@@ -200,5 +201,5 @@ const PORT = process.env.PORT || 80;
 const app = express();
 app.use(express.static('build'))
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`)
+  console.log(`HTTP Server listening on ${PORT}`)
 })
