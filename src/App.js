@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     console.log('making a new socket');
-    const ws = new WebSocket('ws://68.184.115.200:9898/');
+    const ws = new WebSocket('ws://34.75.93.60:9898/');
     ws.onopen = function() {
       setSocket(ws);
     };
