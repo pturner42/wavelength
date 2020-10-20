@@ -142,6 +142,7 @@ const parseMessage = (data, connection) => {
   if (roomCode) game = allRooms[roomCode];
   if (data.type === MessageTypes.NEW_GAME) {
     game = newRoom(data.owner);
+    console.log('Room', game.roomCode, 'created by', data.owner);
     joinRoom(game.roomCode, data.owner, connection);
     sendData(game, connection);
   } else if (data.type === MessageTypes.JOIN_ROOM) {
@@ -193,7 +194,6 @@ wsServer.on('request', function(request) {
   console.log('new connection');
   const connection = request.accept(null, request.origin);
   connection.on('message', function(message) {
-    console.log('new message');
     const data = JSON.parse(message.utf8Data);
     parseMessage(data, connection);
   });
