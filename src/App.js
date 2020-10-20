@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Game from './components/Game';
 import './App.css';
+import gitHubLogo from './GitHub-Mark-Light-64px.png';
 import {
   NO_CONNECTION,
   WAITING,
@@ -125,6 +126,9 @@ function App() {
           Create New Room
         </button>
         <DonateButton />
+        <a href="https://github.com/pturner42/wavelength" target="_blank" rel="noopener noreferrer">
+          <img src={gitHubLogo} alt="GitHub Repository" width={32} height={32} />
+        </a>
       </div>
     )
     if (gameData.state === WAITING) return (
