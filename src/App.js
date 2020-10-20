@@ -12,6 +12,7 @@ import {
   PICK_PLAYERS,
 } from './GameStates';
 import * as MT from './MessageTypes';
+import DonateButton from './components/DonateButton';
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -123,6 +124,7 @@ function App() {
         >
           Create New Room
         </button>
+        <DonateButton />
       </div>
     )
     if (gameData.state === WAITING) return (
