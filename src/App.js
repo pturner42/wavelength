@@ -9,6 +9,7 @@ import {
   THINK_ABOUT_IT,
   GUESS,
   REVEAL,
+  PICK_PLAYERS,
 } from './GameStates';
 import * as MT from './MessageTypes';
 
@@ -25,7 +26,7 @@ function App() {
 
   useEffect(() => {
     console.log('making a new socket');
-    const ws = new WebSocket('ws://66.190.87.112:9898/');
+    const ws = new WebSocket('ws://68.184.115.200:9898/');
     ws.onopen = function() {
       setSocket(ws);
     };
@@ -53,7 +54,40 @@ function App() {
     });
   }
 
-  const startGame = () => sendMessage({ type: MT.START_GAME });
+  const startTeamSelection = () => sendMessage({ type: MT.START_GAME });
+  const startGame = () => sendMessage({ type: MT.LOCK_IN_PLAYERS });
+
+  const renderTeam = (team, teamName, left) => (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: left ? 'flex-end' : 'flex-start',
+        margin: 10,
+      }}
+    >
+      <span
+        style={{
+          color: left ? 'orange' : 'aqua',
+          fontSize: 30,
+        }}
+      >
+        {teamName}
+      </span>
+      {
+        team.map((p) => (
+          <span
+            style={{
+              fontSize: 23,
+              color: '#ccc',
+            }}
+          >
+            {p}
+          </span>
+        ))
+      }
+    </div>
+  )
 
   const render = () => {
     if (!gameData) return (
@@ -109,11 +143,57 @@ function App() {
         {
           gameData.owner.toUpperCase() === myName.toUpperCase() ? (
             <button
-              onClick={startGame}
+              onClick={startTeamSelection}
               style={{ padding: 10, marginTop: 20 }}
               disabled={gameData.players.length < 4}
             >
               Start Game
+            </button>
+          ) : <span style={{ color: '#ccc', margin: 10, fontSize: 20 }}>Waiting on {gameData.owner} to start the game.</span>
+        }
+        <div
+          style={{
+            color: '#bbb',
+            fontSize: 13,
+            marginTop: 12,
+          }}
+        >
+          Room Code: {gameData.roomCode}
+        </div>
+      </div>
+    )
+    if (gameData.state === PICK_PLAYERS) return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+          }}
+        >
+          {renderTeam(gameData.team1, 'Team 1', true)}
+          {renderTeam(gameData.team2, 'Team A', false)}
+        </div>
+        <button
+          onClick={startTeamSelection}
+          style={{ padding: 10, marginTop: 20 }}
+          disabled={gameData.owner.toUpperCase() !== myName.toUpperCase()}
+        >
+          Randomize Teams
+        </button>
+        {
+          gameData.owner.toUpperCase() === myName.toUpperCase() ? (
+            <button
+              onClick={startGame}
+              style={{ padding: 10, marginTop: 20 }}
+              disabled={gameData.players.length < 4}
+            >
+              Begin
             </button>
           ) : <span style={{ color: '#ccc', margin: 10, fontSize: 20 }}>Waiting on {gameData.owner} to start the game.</span>
         }

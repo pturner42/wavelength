@@ -129,8 +129,8 @@ function Game(props) {
 
   const hintText = {
     [WAITING]: 'Press SPACEBAR to begin!',
-    [PICK_CARD]: iAmPickingCard ? 'Pick your card.' : `Wait for ${activePlayer} to pick a card.`,
-    [THINK_ABOUT_IT]: iAmGivingHint ? null : `${activePlayer} is thining of a hint.`,
+    [PICK_CARD]: iAmPickingCard ? 'It\'s your turn! Pick your card.' : `Wait for ${activePlayer} to pick a card.`,
+    [THINK_ABOUT_IT]: iAmGivingHint ? null : `${activePlayer} is thinking of a hint.`,
     [GUESS]: `"${hint}"`,
     [REVEAL]: `Team ${teamTurn === 0 ? '1' : 'A'} scored ${roundScore} points${roundScore > 0 ? '!' : '.'}`,
   }[state];
@@ -188,7 +188,7 @@ function Game(props) {
         {
           team.map(p => (
             <span style={{ color: p === activePlayer ? 'white' : (left ? 'yellow' : '#7cf'), fontSize: dialWidth / 15 }}>
-              {p}
+              {!left && activePlayer === p ? '> ' : null}{p.substring(0,15)}{left && activePlayer === p ? ' <' : null}
             </span>
           ))
         }
@@ -224,6 +224,8 @@ function Game(props) {
           }}
         >
           Room Code: {gameData.roomCode}
+          <br />
+          68.184.115.200
         </div>
         <div
           style={{
@@ -306,6 +308,24 @@ function Game(props) {
               position: 'absolute',
               left:(dialWidth / 2) - (tWidth),
               bottom: 0,
+            }}
+          />
+          {/* This is the Needle */}
+          <div
+            style={{
+              width: dialWidth,
+              height: dialHeight,
+              borderTopLeftRadius: dialHeight,
+              borderTopRightRadius: dialHeight,
+              // backgroundColor: 'green',
+              // border: '2px solid #93b',
+              marginTop: 10,
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+
+              transform: `rotate(${guessAngle}deg)`,
+              transformOrigin: 'bottom',
             }}
           />
           <div

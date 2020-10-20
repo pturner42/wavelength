@@ -8,4 +8,5 @@ module.exports = {
   MOVE_DIAL: 6,
   LOCK_IT_IN: 7,
   NEXT_ROUND: 8,
+  LOCK_IN_PLAYERS: 9,
 };

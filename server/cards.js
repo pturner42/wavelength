@@ -21,7 +21,6 @@ Believable, Unbelievable
 Underrated game, Overrated game
 Feels bad, Feels good
 Divided, Whole
-Socialist, Capitalist
 80s, 90s
 Useless in an emergency, Useful in an emergency
 Villain, Hero
@@ -75,8 +74,8 @@ Underrated, Overrated
 Underrated actor, Overrated actor
 Underrated book, Overrated book
 Popular, Elitist
-Powrless, Powerful
-Quite, Loud
+Powerless, Powerful
+Quiet, Loud
 Quiet place, Loud place
 Rough, Smooth
 Round, Pointy
@@ -138,4 +137,29 @@ Funny animal, Serious animal
 Flavorless, Flavorful
 Unpopular in the 80s, Popular in the 80s
 Cat behavior, Dog behavior
+Peanut Butter, Jelly
+Imposter, Crewmate
+What?, Why?
+Excessive Censorship, Polite Censorship
+Yeah No, No Yeah
+Overconfident, Shy
+Fixer Upper, Complete Package
+Less, More
+Broken, Functional
+Inappropriate, Proper
+Alpha, Beta
+Competent, Master
+Breakfast, Dinner
+Appetizer, Desert
+Shows with a bad First Season, Shows with a bad Last Season
+DIY, Buy it New
+Grand Entrance, Grand Exit
+Nerd, Dork
+Ohhhhh, Ahhhhh
+Teenage Problem, Elder Problem
+Oh No, Oh Yes
+Kiss, Bite
+Gendered, Genderless
+Wing It, Well Planned
+Random, Selected
 `;

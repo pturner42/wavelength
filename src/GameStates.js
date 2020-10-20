@@ -5,5 +5,7 @@ module.exports = {
   LOOK_AWAY : 3,
   THINK_ABOUT_IT : 4,
   GUESS : 5,
-  REVEAL : 6,
+  OTHER_TEAM_GUESS: 6,
+  REVEAL : 7,
+  PICK_PLAYERS: 8,
 };

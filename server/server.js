@@ -61,9 +61,8 @@ const pickCard = (game) => {
     return null;
   }
   const i = Math.floor(Math.random() * game.remainingCards.length);
-  card = game.remainingCards[i];
   const newRemainingCards = game.remainingCards.slice();
-  newRemainingCards.splice(i, 1);
+  card = newRemainingCards.splice(i, 1)[0];
   game.remainingCards = newRemainingCards;
   return {
     leftWords: card[0],
@@ -89,9 +88,10 @@ const beginGame = (game) => {
     if (game.team1.length <= game.team2.length) game.team1.push(p);
     else game.team2.push(p);
   }
-  game.currentTurns = [0,0];
+  game.currentTurns = [game.team1.length - 1, game.team2.length - 1];
   game.teamTurn = Math.round(Math.random());
   game.score = [0, 0];
+  game.state = GameStates.PICK_PLAYERS;
   return true;
 };
 
@@ -145,11 +145,13 @@ const parseMessage = (data, connection) => {
     joinRoom(game.roomCode, data.owner, connection);
     sendData(game, connection);
   } else if (data.type === MessageTypes.JOIN_ROOM) {
+    console.log(data.name, 'is trying to join room', roomCode);
     if (allRooms[roomCode]) {
       joinRoom(roomCode, data.name, connection);
     }
   } else if (data.type === MessageTypes.START_GAME) {
     beginGame(game);
+  } else if (data.type === MessageTypes.LOCK_IN_PLAYERS) {
     beginRound(game);
   } else if (data.type === MessageTypes.PICK_CARD && game.state === GameStates.PICK_CARD) {
     game.cardPicked = data.cardPicked;
@@ -161,11 +163,14 @@ const parseMessage = (data, connection) => {
     game.guessAngle += data.amount;
     if (game.guessAngle < -89) game.guessAngle = -89;
     else if (game.guessAngle > 89) game.guessAngle = 89;
-  } else if (data.type === MessageTypes.LOCK_IT_IN && game.state === GameStates.GUESS) {
+  }
+  else if (data.type === MessageTypes.LOCK_IT_IN && game.state === GameStates.GUESS) {
+    // game.state = GameStates.OTHER_TEAM_GUESS;
     game.state = GameStates.REVEAL;
     game.roundScore = getScore(game.dialAngle, game.guessAngle);
     game.score[game.teamTurn] += game.roundScore;
-  } else if (data.type === MessageTypes.NEXT_ROUND && game.state === GameStates.REVEAL) {
+  }
+  else if (data.type === MessageTypes.NEXT_ROUND && game.state === GameStates.REVEAL) {
     beginRound(game);
   } else {
     console.log('Unknown message type, or wrong state', game && game.state, data.type);
@@ -197,7 +202,7 @@ wsServer.on('request', function(request) {
   });
 });
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8264;
 const app = express();
 app.use(express.static('build'))
 app.listen(PORT, () => {
