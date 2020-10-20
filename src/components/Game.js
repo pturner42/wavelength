@@ -225,7 +225,7 @@ function Game(props) {
         >
           Room Code: {gameData.roomCode}
           <br />
-          68.184.115.200
+          wavelength.prestonandvictoria.com
         </div>
         <div
           style={{
